@@ -282,25 +282,36 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         Role role = (Role) roleJComboBox.getSelectedItem();
         
          for (Network network : business.getNetworkList()) {
+             if(business.checkIfUserIsUnique(userName)==false)
+             {
+              
+                JOptionPane.showMessageDialog(null, "Sorry, but this username has already been taken.\nPlease try again with a different combination");
+                return;
+                
+             }
             for (Enterprise e : network.getEnterpriseDirectory().getEnterpriseList()) {
+                
+                if(e.getUserAccountDirectory().checkIfUsernameIsUnique(userName)==false)
+                {
+                JOptionPane.showMessageDialog(null, "Sorry, but this username has already been taken.\nPlease try again with a different combination");
+                return;
+                }
                 for(Organization o : e.getOrganizationDirectory().getOrganizationList())
                 {
-                if (o.getUserAccountDirectory().checkIfUsernameIsUnique(userName)) {
-                    
-                  organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
-                     popData();
-                        return;
-                } else {
+                if (o.getUserAccountDirectory().checkIfUsernameIsUnique(userName )==false) {
                     JOptionPane.showMessageDialog(null, "Sorry, but this username has already been taken.\nPlease try again with a different combination");
                     popData();
                     return;
-                }
+                  
+                      
+                } 
             }
             }
         }
 
         
-        
+        organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
+                     popData();
         
        
     }//GEN-LAST:event_createUserJButtonActionPerformed

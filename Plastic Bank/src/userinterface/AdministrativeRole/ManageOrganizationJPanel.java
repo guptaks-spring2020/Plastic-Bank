@@ -11,6 +11,7 @@ import Business.Organization.Organization;
 import Business.Organization.Organization.Type;
 import Business.Organization.OrganizationDirectory;
 import java.awt.CardLayout;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -187,8 +188,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     private void addJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJButtonActionPerformed
 
         Type type = (Type) organizationJComboBox.getSelectedItem();
-        
-        boolean check = enterprise.getOrganizationDirectory().checkIfOrganisationExists(type);
+       ArrayList<Organization> list =  enterprise.getOrganizationDirectory().getOrganizationList();
+        boolean check = enterprise.getOrganizationDirectory().checkIfOrganisationExists(type, list);
         
         if(check == false)
         {

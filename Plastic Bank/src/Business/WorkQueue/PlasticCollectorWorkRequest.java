@@ -13,13 +13,25 @@ public class PlasticCollectorWorkRequest extends WorkRequest {
     
     private String type;
     private String grade;
-    private int rewards;
+    private float rewards;
     private int moneyGiven;
+    private int totalMoney;
 
     public int getMoneyGiven() {
         return moneyGiven;
     }
 
+    public int getTotalMoney() {
+        return totalMoney;
+    }
+
+    public void setTotalMoney(int totalMoney) {
+        this.totalMoney = totalMoney;
+    }
+
+    
+    
+    
     public void setMoneyGiven(int moneyGiven) {
         this.moneyGiven = moneyGiven;
     }
@@ -39,13 +51,14 @@ public class PlasticCollectorWorkRequest extends WorkRequest {
         this.grade = grade;
     }
 
-    public int getRewards() {
+    public float getRewards() {
         return rewards;
     }
 
-    public void setRewards(int rewards) {
+    public void setRewards(float rewards) {
         this.rewards = rewards;
     }
+    
     
     
     

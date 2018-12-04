@@ -60,50 +60,70 @@ public class SellPlasticJPanel extends javax.swing.JPanel {
         valueLabel = new javax.swing.JLabel();
         enterpriseLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        typeOfPlastic = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        typeOfPlastic = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        requestTestJButton.setBackground(new java.awt.Color(51, 51, 51));
+        requestTestJButton.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         requestTestJButton.setText("Sell");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 requestTestJButtonActionPerformed(evt);
             }
         });
-        add(requestTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, -1, -1));
+        add(requestTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 360, -1, -1));
 
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel1.setText("Quantity:");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
-        add(quantityField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 37, 89, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
 
+        quantityField.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        add(quantityField, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 140, -1));
+
+        backJButton.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         backJButton.setText("<<Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backJButtonActionPerformed(evt);
             }
         });
-        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
+        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
 
         valueLabel.setText("<value>");
-        add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 130, -1));
+        add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 130, -1));
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("EnterPrise :");
-        add(enterpriseLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 120, 30));
+        add(enterpriseLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 120, 30));
 
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel2.setText("Type:");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
-        add(typeOfPlastic, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 90, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 80, -1));
+
+        jLabel3.setText("Kgs");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, -1, -1));
+
+        typeOfPlastic.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bottles", "polythene bags", "straws" }));
+        add(typeOfPlastic, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, 140, 40));
+
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 16)); // NOI18N
+        jLabel4.setText("Please provide the Quantity and the type of plastics");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 440, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
         
         int quantity = Integer.parseInt(quantityField.getText());
-        
+        String type = (String)typeOfPlastic.getSelectedItem();
         PlasticCollectorWorkRequest request = new PlasticCollectorWorkRequest();
         request.setQuant(quantity);
         request.setSender(userAccount);
         request.setStatus("Requested");
+        request.setType(type);
         
         Organization org = null;
         
@@ -160,9 +180,11 @@ public class SellPlasticJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField quantityField;
     private javax.swing.JButton requestTestJButton;
-    private javax.swing.JTextField typeOfPlastic;
+    private javax.swing.JComboBox typeOfPlastic;
     private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }

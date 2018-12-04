@@ -50,7 +50,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Admin Work Area");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 320, 60));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 230, 60));
 
         userJButton.setText("Manage User");
         userJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -58,7 +58,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
                 userJButtonActionPerformed(evt);
             }
         });
-        add(userJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 230, -1));
+        add(userJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 349, 230, 50));
 
         manageEmployeeJButton.setText("Manage Employee");
         manageEmployeeJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -66,7 +66,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
                 manageEmployeeJButtonActionPerformed(evt);
             }
         });
-        add(manageEmployeeJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 230, -1));
+        add(manageEmployeeJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 259, 230, 50));
 
         manageOrganizationJButton.setText("Manage Organization");
         manageOrganizationJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -74,14 +74,14 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
                 manageOrganizationJButtonActionPerformed(evt);
             }
         });
-        add(manageOrganizationJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 230, -1));
+        add(manageOrganizationJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 169, 230, 50));
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("EnterPrise :");
-        add(enterpriseLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 120, 30));
+        add(enterpriseLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 30));
 
         valueLabel.setText("<value>");
-        add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 200, -1));
+        add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 200, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed

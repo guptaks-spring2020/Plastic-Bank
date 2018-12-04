@@ -12,6 +12,7 @@ import Business.WorkQueue.PlasticCollectorWorkRequest;
 import Business.WorkQueue.WarehouseEmployeeWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -46,13 +47,16 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         model.setRowCount(0);
         
         for(WorkRequest request : warehouse.getWorkQueue().getWorkRequestList()){
-            Object[] row = new Object[6];
+            Object[] row = new Object[8];
             row[0] = request;
             row[1] = request.getSender().getEmployee().getName();
             row[2] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
-            row[3] = request.getStatus();
-            row[4] = request.getQuant();
-            row[5] = ((PlasticCollectorWorkRequest)request).getMoneyGiven();
+             row[3] = request.getStatus();
+            row[4] = ((PlasticCollectorWorkRequest)request).getType();
+           
+            row[5] = ((PlasticCollectorWorkRequest)request).getGrade();
+            row[6] = request.getQuant();
+            row[7] = ((PlasticCollectorWorkRequest)request).getMoneyGiven();
             model.addRow(row);
         }
     }
@@ -69,7 +73,7 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         workRequestJTable = new javax.swing.JTable();
         assignJButton = new javax.swing.JButton();
-        processJButton = new javax.swing.JButton();
+        checkPlastic = new javax.swing.JButton();
         refreshJButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -77,20 +81,20 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
 
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Message", "Sender", "Receiver", "Status", "Quantity", "Money Given"
+                "Message", "Sender", "Receiver", "Status", "Plastic Type", "Grade", "Quantity", "Money Given"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, false, false
+                true, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -103,15 +107,16 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(workRequestJTable);
         if (workRequestJTable.getColumnModel().getColumnCount() > 0) {
-            workRequestJTable.getColumnModel().getColumn(0).setResizable(false);
             workRequestJTable.getColumnModel().getColumn(1).setResizable(false);
             workRequestJTable.getColumnModel().getColumn(2).setResizable(false);
             workRequestJTable.getColumnModel().getColumn(3).setResizable(false);
             workRequestJTable.getColumnModel().getColumn(4).setResizable(false);
             workRequestJTable.getColumnModel().getColumn(5).setResizable(false);
+            workRequestJTable.getColumnModel().getColumn(6).setResizable(false);
+            workRequestJTable.getColumnModel().getColumn(7).setResizable(false);
         }
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 58, 375, 96));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 620, 96));
 
         assignJButton.setText("Assign to me");
         assignJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -119,15 +124,16 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
                 assignJButtonActionPerformed(evt);
             }
         });
-        add(assignJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
+        add(assignJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 110, -1));
 
-        processJButton.setText("Check Plastic");
-        processJButton.addActionListener(new java.awt.event.ActionListener() {
+        checkPlastic.setText("Check Plastic");
+        checkPlastic.setEnabled(false);
+        checkPlastic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                processJButtonActionPerformed(evt);
+                checkPlasticActionPerformed(evt);
             }
         });
-        add(processJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, -1, -1));
+        add(checkPlastic, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 110, -1));
 
         refreshJButton.setText("Refresh");
         refreshJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -135,34 +141,51 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
                 refreshJButtonActionPerformed(evt);
             }
         });
-        add(refreshJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 26, -1, -1));
+        add(refreshJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void assignJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignJButtonActionPerformed
-
+        checkPlastic.setEnabled(true);
         int selectedRow = workRequestJTable.getSelectedRow();
         
         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please choose a row from the table");
             return;
         }
         
         WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
+        System.out.println("###"+request.getStatus());
+        if(request.getStatus().equals("Completed"))
+        {
+          JOptionPane.showMessageDialog(null, "This request has already been processed");
+          checkPlastic.setEnabled(false);
+          return;
+        }
         request.setReceiver(userAccount);
         request.setStatus("Pending");
         populateTable();
+        //checkPlastic.setEnabled(false);
         
     }//GEN-LAST:event_assignJButtonActionPerformed
 
-    private void processJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processJButtonActionPerformed
+    private void checkPlasticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkPlasticActionPerformed
         
         int selectedRow = workRequestJTable.getSelectedRow();
         
         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please choose a value from the table");
             return;
         }
         
         PlasticCollectorWorkRequest request = (PlasticCollectorWorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
-     
+        if(request.getStatus().equals("Completed"))
+            
+        {
+         JOptionPane.showMessageDialog(null, "This request has already been processed");
+          
+          return;
+        }
+        
         request.setStatus("Processing");
         
         ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, request);
@@ -170,7 +193,7 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
         
-    }//GEN-LAST:event_processJButtonActionPerformed
+    }//GEN-LAST:event_checkPlasticActionPerformed
 
     private void refreshJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshJButtonActionPerformed
         populateTable();
@@ -178,8 +201,8 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignJButton;
+    private javax.swing.JButton checkPlastic;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton processJButton;
     private javax.swing.JButton refreshJButton;
     private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables

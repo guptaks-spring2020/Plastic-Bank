@@ -37,16 +37,28 @@ public class OrganizationDirectory {
     }
     
     
-     public boolean checkIfOrganisationExists(Type type)
+     public boolean checkIfOrganisationExists(Type type, ArrayList<Organization> list)
     {
-         Organization organization = null;
-    if (type.getValue().equals(Type.IdentifyCollectors.getValue()) || type.getValue().equals(Type.Warehouse.getValue())){
-          
-        return true;
+        
+        for(Organization o : list)
+        {
+        if(o.getName().equals(type.getValue()))
+        {
+            return true;
+            }
         }
-       
+        return false;
+        }
         
         
-    return false;
-    }
+//         Organization organization = null;
+//    if (type.getValue().equals(Type.IdentifyCollectors.getValue()) || type.getValue().equals(Type.Warehouse.getValue())){
+//          
+//        return true;
+//        }
+//       
+//        
+//        
+//    return false;
+//    }
 }

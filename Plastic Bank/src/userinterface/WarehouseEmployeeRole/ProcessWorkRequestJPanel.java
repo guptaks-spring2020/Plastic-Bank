@@ -8,6 +8,7 @@ import Business.WorkQueue.PlasticCollectorWorkRequest;
 import Business.WorkQueue.WarehouseEmployeeWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -25,6 +26,7 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.request = request;
+        
     }
 
     /**
@@ -38,9 +40,15 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
 
         submitJButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        resultJTextField = new javax.swing.JTextField();
+        rateTextField = new javax.swing.JTextField();
         backJButton = new javax.swing.JButton();
+        gradeOfPlastic = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        submitJButton.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         submitJButton.setText("Submit Result");
         submitJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -48,14 +56,34 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel1.setText("Rate Today");
 
+        rateTextField.setEditable(false);
+        rateTextField.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        rateTextField.setEnabled(false);
+
+        backJButton.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         backJButton.setText("Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backJButtonActionPerformed(evt);
             }
         });
+
+        gradeOfPlastic.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        gradeOfPlastic.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--Select--", "Grade A", "Grade B", "Grade C" }));
+        gradeOfPlastic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gradeOfPlasticActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel2.setText("Grade of Plastic");
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel3.setText("Quality Analysis");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -64,33 +92,43 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(backJButton))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(165, 165, 165)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(156, 156, 156)
+                                .addComponent(backJButton)))
+                        .addGap(143, 143, 143)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(gradeOfPlastic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(submitJButton)
+                            .addComponent(rateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jLabel1)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(resultJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(192, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(submitJButton)
-                        .addGap(72, 72, 72))))
+                        .addGap(278, 278, 278)
+                        .addComponent(jLabel3)))
+                .addGap(205, 205, 205))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel3)
+                .addGap(66, 66, 66)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(gradeOfPlastic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(resultJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(63, 63, 63)
+                    .addComponent(rateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(submitJButton)
-                    .addComponent(backJButton))
-                .addContainerGap(150, Short.MAX_VALUE))
+                    .addComponent(backJButton)
+                    .addComponent(submitJButton))
+                .addGap(71, 71, 71))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -106,16 +144,50 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backJButtonActionPerformed
 
     private void submitJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitJButtonActionPerformed
-        int rateToday = Integer.parseInt(resultJTextField.getText());
+        if(gradeOfPlastic.getSelectedIndex()==0)
+        {
+         JOptionPane.showMessageDialog(null, "Please select a value");
+         return;
+        }
+        int rateToday = Integer.parseInt(rateTextField.getText());
         request.setMoneyGiven(rateToday*request.getQuant());
+        request.setRewards(request.getQuant());
         System.out.println("###"+rateToday*request.getQuant());
         request.setStatus("Completed");
+        request.setRewards(request.getMoneyGiven()/100);
+        
+        request.setTotalMoney(request.getTotalMoney()+request.getMoneyGiven());
+        
+        request.setGrade(gradeOfPlastic.getSelectedItem().toString());
+        JOptionPane.showMessageDialog(null, "Checked and bought!!");
     }//GEN-LAST:event_submitJButtonActionPerformed
+
+    private void gradeOfPlasticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeOfPlasticActionPerformed
+        // TODO add your handling code here:
+        if(gradeOfPlastic.getSelectedIndex()==1)
+        {
+        rateTextField.setText(String.valueOf(20));
+        }
+        
+        if(gradeOfPlastic.getSelectedIndex()==2)
+        {
+        rateTextField.setText(String.valueOf(10));
+        }
+        
+        if(gradeOfPlastic.getSelectedIndex()==3)
+        {
+        rateTextField.setText(String.valueOf(5));
+        }
+        
+    }//GEN-LAST:event_gradeOfPlasticActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;
+    private javax.swing.JComboBox gradeOfPlastic;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField resultJTextField;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField rateTextField;
     private javax.swing.JButton submitJButton;
     // End of variables declaration//GEN-END:variables
 }
