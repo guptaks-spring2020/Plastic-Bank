@@ -41,4 +41,13 @@ public class EmployeeDirectory {
         employeeList.add(employee);
         return employee;
     }
+     
+//     public boolean checkIfEmployeeExists(String username, ArrayList<Employee> list)
+//     {
+//     for(Employee e : list)
+//     {
+//     if(e.)
+//     }
+//     return true;
+//     }
 }

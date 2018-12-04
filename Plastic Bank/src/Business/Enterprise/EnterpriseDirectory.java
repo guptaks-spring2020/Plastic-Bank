@@ -49,4 +49,19 @@ public class EnterpriseDirectory {
         }
         return enterprise;
     }
+    
+    public boolean checkIfEnterpriseExists(String name,Enterprise.EnterpriseType type,  ArrayList<Enterprise> e)
+    {
+    for(Enterprise enterprise: e)
+    {
+    
+        if(enterprise.getEnterpriseType() == type)
+        {
+        return true;
+        }
+    }
+        
+        
+    return false;
+    }
 }

@@ -35,4 +35,18 @@ public class OrganizationDirectory {
         }
         return organization;
     }
+    
+    
+     public boolean checkIfOrganisationExists(Type type)
+    {
+         Organization organization = null;
+    if (type.getValue().equals(Type.IdentifyCollectors.getValue()) || type.getValue().equals(Type.Warehouse.getValue())){
+          
+        return true;
+        }
+       
+        
+        
+    return false;
+    }
 }

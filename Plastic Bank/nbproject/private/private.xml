@@ -3,13 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/kshitiz/NetBeansProjects/Plastic%20Waste/src/Business/Role/PlasticCollectorRole.java</file>
-            <file>file:/Users/kshitiz/NetBeansProjects/Plastic%20Waste/src/userinterface/PlasticCollectorRole/SellPlasticJPanel.java</file>
-            <file>file:/Users/kshitiz/NetBeansProjects/Plastic%20Waste/src/userinterface/PlasticCollectorRole/PlasticCollectorWorkAreaJPanel.java</file>
-            <file>file:/Users/kshitiz/NetBeansProjects/Plastic%20Waste/src/userinterface/WarehouseEmployeeRole/WarehouseEmployeeWorkArea.java</file>
-            <file>file:/Users/kshitiz/NetBeansProjects/Plastic%20Waste/src/Business/WorkQueue/WarehouseEmployeeWorkRequest.java</file>
-            <file>file:/Users/kshitiz/NetBeansProjects/Plastic%20Waste/src/userinterface/WarehouseEmployeeRole/ProcessWorkRequestJPanel.java</file>
-            <file>file:/Users/kshitiz/NetBeansProjects/Plastic%20Waste/src/Business/WorkQueue/PlasticCollectorWorkRequest.java</file>
+            <file>file:/Users/kshitiz/NetBeansProjects/Plastic%20Bank/src/userinterface/SystemAdminWorkArea/SystemAdminWorkAreaJPanel.java</file>
         </group>
     </open-files>
 </project-private>
