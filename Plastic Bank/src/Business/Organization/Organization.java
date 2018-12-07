@@ -29,6 +29,24 @@ public abstract class Organization {
     private PoorCollectorsDirectory poorCollectorsDirectory;
     private int organizationID;
     private static int counter=0;
+    private String networkName;
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public static void setCounter(int counter) {
+        Organization.counter = counter;
+    }
+
+    public String getNetworkName() {
+        return networkName;
+    }
+
+    public void setNetworkName(String networkName) {
+        this.networkName = networkName;
+    }
+    
 
     public PoorCollectorsDirectory getPoorCollectorsDirectory() {
         return poorCollectorsDirectory;
@@ -39,7 +57,7 @@ public abstract class Organization {
     }
     
     public enum Type{
-        Admin("Admin Organization"), IdentifyCollectors("Identify Collectors"), Warehouse("Warehouse");
+        Admin("Admin Organization"), IdentifyCollectors("Identify Collectors"), Warehouse("Warehouse"), LabourDepartment("Labour Department");
         private String value;
         private Type(String value) {
             this.value = value;

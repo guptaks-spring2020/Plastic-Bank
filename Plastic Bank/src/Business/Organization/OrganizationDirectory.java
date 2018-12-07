@@ -33,6 +33,10 @@ public class OrganizationDirectory {
             organization = new Warehouse();
             organizationList.add(organization);
         }
+        else if (type.getValue().equals(Type.LabourDepartment.getValue())){
+            organization = new LabourDepartment();
+            organizationList.add(organization);
+        }
         return organization;
     }
     

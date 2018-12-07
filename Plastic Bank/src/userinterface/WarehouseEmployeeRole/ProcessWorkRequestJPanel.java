@@ -4,13 +4,14 @@
  */
 package userinterface.WarehouseEmployeeRole;
 
+import Business.Organization.Organization;
 import Business.WorkQueue.PlasticCollectorWorkRequest;
-import Business.WorkQueue.WarehouseEmployeeWorkRequest;
+import Business.WorkQueue.BorrowPlasticWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+import Business.Organization.Warehouse;
 /**
  *
  * @author raunak
@@ -19,13 +20,15 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
 
     JPanel userProcessContainer;
     PlasticCollectorWorkRequest request;
+    Warehouse warehouse;
     /**
      * Creates new form ProcessWorkRequestJPanel
      */
-    public ProcessWorkRequestJPanel(JPanel userProcessContainer, PlasticCollectorWorkRequest request) {
+    public ProcessWorkRequestJPanel(JPanel userProcessContainer, PlasticCollectorWorkRequest request, Warehouse warehouse) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.request = request;
+        this.warehouse = warehouse;
         
     }
 
@@ -49,7 +52,7 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         submitJButton.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        submitJButton.setText("Submit Result");
+        submitJButton.setText("Purchase Plastic");
         submitJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitJButtonActionPerformed(evt);
@@ -138,7 +141,7 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         WarehouseEmployeeWorkArea dwjp = (WarehouseEmployeeWorkArea) component;
-        dwjp.populateTable();
+        dwjp.populateTable1();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
@@ -160,6 +163,9 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
         
         request.setGrade(gradeOfPlastic.getSelectedItem().toString());
         JOptionPane.showMessageDialog(null, "Checked and bought!!");
+        
+        int plastic = request.getQuant();
+        warehouse.addPlastic(plastic);
     }//GEN-LAST:event_submitJButtonActionPerformed
 
     private void gradeOfPlasticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeOfPlasticActionPerformed

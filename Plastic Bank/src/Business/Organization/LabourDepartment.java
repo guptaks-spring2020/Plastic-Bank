@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business.Enterprise;
+package Business.Organization;
 
+import Business.Role.LabourRole;
 import Business.Role.Role;
 import java.util.ArrayList;
 
@@ -12,16 +13,18 @@ import java.util.ArrayList;
  *
  * @author kshitiz
  */
-public class PlasticBankEnterprise extends Enterprise {
+public class LabourDepartment extends Organization{
+
+    public LabourDepartment()
+    {
+     super(Organization.Type.LabourDepartment.getValue());
     
-  
-    
-    public PlasticBankEnterprise(String name){
-        super(name,EnterpriseType.PlasticBank);
     }
     @Override
     public ArrayList<Role> getSupportedRole() {
-        return null;
+         ArrayList<Role> roles = new ArrayList();
+        roles.add(new LabourRole());
+        return roles;
     }
     
 }

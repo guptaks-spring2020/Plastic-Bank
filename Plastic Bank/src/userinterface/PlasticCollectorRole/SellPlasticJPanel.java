@@ -13,7 +13,7 @@ import Business.Organization.IdentifyCollectors;
 import Business.Organization.Organization;
 import Business.Organization.Warehouse;
 import Business.UserAccount.UserAccount;
-import Business.WorkQueue.WarehouseEmployeeWorkRequest;
+import Business.WorkQueue.BorrowPlasticWorkRequest;
 import Business.WorkQueue.PlasticCollectorWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -31,10 +31,11 @@ public class SellPlasticJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private UserAccount userAccount;
     private EcoSystem business;
+    private Network network;
     /**
      * Creates new form RequestLabTestJPanel
      */
-    public SellPlasticJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, EcoSystem business) {
+    public SellPlasticJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, EcoSystem business, Network network) {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;
@@ -42,6 +43,7 @@ public class SellPlasticJPanel extends javax.swing.JPanel {
         this.userAccount = account;
         this.business = business;
         valueLabel.setText(enterprise.getName());
+        this.network = network;
     }
 
     /**
@@ -134,10 +136,7 @@ public class SellPlasticJPanel extends javax.swing.JPanel {
 //            }
 //        }
         
-        for (Network network : business.getNetworkList()){
-           
-            
-            
+    
             for(Enterprise ep: network.getEnterpriseDirectory().getEnterpriseList())
             {
                 
@@ -147,6 +146,8 @@ public class SellPlasticJPanel extends javax.swing.JPanel {
             if (organization instanceof Warehouse){
                 org = organization;
                  System.out.println(org);
+                org.getWorkQueue().getWorkRequestList().add(request);
+                
                 break;
             }
         }
@@ -155,9 +156,9 @@ public class SellPlasticJPanel extends javax.swing.JPanel {
             }
             }
             
-        }
+       
         if (org!=null){
-            org.getWorkQueue().getWorkRequestList().add(request);
+//            org.getWorkQueue().getWorkRequestList().add(request);
             userAccount.getWorkQueue().getWorkRequestList().add(request);
         }
         

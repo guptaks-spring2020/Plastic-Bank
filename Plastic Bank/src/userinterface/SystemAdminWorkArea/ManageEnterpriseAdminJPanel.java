@@ -8,6 +8,7 @@ import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
+import Business.Organization.Organization;
 import Business.Role.AdminRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -275,24 +276,36 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         String name = nameJTextField.getText();
 
         for (Network network : system.getNetworkList()) {
+             if(system.checkIfUserIsUnique(username)==false)
+             {
+              
+                JOptionPane.showMessageDialog(null, "Sorry, but this username has already been taken.\nPlease try again with a different combination");
+                return;
+                
+             }
             for (Enterprise e : network.getEnterpriseDirectory().getEnterpriseList()) {
-
-                if (e.getUserAccountDirectory().checkIfUsernameIsUnique(username)) {
-                    Employee employee = enterprise.getEmployeeDirectory().createEmployee(name);
-                    UserAccount account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new AdminRole());
-                    populateTable();
-                        return;
-                } else {
+                
+                 if(e.getUserAccountDirectory().checkIfUsernameIsUnique(username)==false) {
+                     JOptionPane.showMessageDialog(null, "Sorry, but this username has already been taken.\nPlease try again with a different combination");
+                         return;
+                }  for(Organization o : e.getOrganizationDirectory().getOrganizationList())
+                {
+                if (o.getUserAccountDirectory().checkIfUsernameIsUnique(username )==false) {
                     JOptionPane.showMessageDialog(null, "Sorry, but this username has already been taken.\nPlease try again with a different combination");
-                    populateTable();
+                    
                     return;
-                }
+                  
+                      
+                } 
 
             }
         }
 
+        }
         
-
+        Employee employee = enterprise.getEmployeeDirectory().createEmployee(name);
+                    UserAccount account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new AdminRole());
+                    populateTable();
     }//GEN-LAST:event_submitJButtonActionPerformed
 
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed

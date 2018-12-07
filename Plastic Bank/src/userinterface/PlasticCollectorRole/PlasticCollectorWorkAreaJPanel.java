@@ -6,9 +6,15 @@ package userinterface.PlasticCollectorRole;
 
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
+import Business.Enterprise.PlasticBankEnterprise;
+import Business.Network.Network;
 import Business.Organization.IdentifyCollectors;
+import Business.Organization.LabourDepartment;
+import Business.Organization.Organization;
+import Business.Organization.Warehouse;
 import Business.UserAccount.UserAccount;
-import Business.WorkQueue.WarehouseEmployeeWorkRequest;
+import Business.WorkQueue.BorrowPlasticWorkRequest;
+import Business.WorkQueue.EmploymentWorkRequest;
 import Business.WorkQueue.PlasticCollectorWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
@@ -26,10 +32,11 @@ public class PlasticCollectorWorkAreaJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private UserAccount userAccount;
     private EcoSystem business;
+    private Network network;
     /**
      * Creates new form DoctorWorkAreaJPanel
      */
-    public PlasticCollectorWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, IdentifyCollectors organization, Enterprise enterprise, EcoSystem business) {
+    public PlasticCollectorWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, IdentifyCollectors organization, Enterprise enterprise, EcoSystem business, Network network) {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;
@@ -37,8 +44,14 @@ public class PlasticCollectorWorkAreaJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         this.business = business;
+        this.network = network;
         valueLabel.setText(enterprise.getName());
         populateRequestTable();
+        populateRequestEmploymentTable();
+        if(Float.parseFloat(sumF.getText()) >500)
+        {
+        requestEmployment.setEnabled(true);
+        }
         
     }
     
@@ -48,6 +61,8 @@ public class PlasticCollectorWorkAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
             //request.getReceiver()
+            if(request instanceof PlasticCollectorWorkRequest)
+            {
             Object[] row = new Object[6];
             row[0] = request.getMessage();
             row[1] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
@@ -60,9 +75,32 @@ public class PlasticCollectorWorkAreaJPanel extends javax.swing.JPanel {
                     sum = sum + ((PlasticCollectorWorkRequest) request).getRewards();
                     sumF.setText(String.valueOf(sum));
             model.addRow(row);
+            }
         }
     }
 
+    public void populateRequestEmploymentTable(){
+        DefaultTableModel model = (DefaultTableModel) EmploymentRequestTable.getModel();
+         float sum =0;
+        model.setRowCount(0);
+        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
+            //request.getReceiver()
+            if(request instanceof EmploymentWorkRequest){
+            Object[] row = new Object[6];
+            row[0] = request.getMessage();
+            row[1] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
+            row[2] = request.getStatus();
+//            row[3] = request.getQuant();
+//            int result = ((PlasticCollectorWorkRequest) request).getMoneyGiven();
+//            row[4] = result == 0 ? "Waiting" : result;
+//            row[5] = ((PlasticCollectorWorkRequest) request).getRewards();
+//           
+//                    sum = sum + ((PlasticCollectorWorkRequest) request).getRewards();
+//                    sumF.setText(String.valueOf(sum));
+            model.addRow(row);
+            }
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,6 +121,10 @@ public class PlasticCollectorWorkAreaJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         sumF = new javax.swing.JLabel();
+        requestEmployment = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        EmploymentRequestTable = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -118,8 +160,11 @@ public class PlasticCollectorWorkAreaJPanel extends javax.swing.JPanel {
             workRequestJTable.getColumnModel().getColumn(1).setResizable(false);
             workRequestJTable.getColumnModel().getColumn(2).setResizable(false);
             workRequestJTable.getColumnModel().getColumn(3).setResizable(false);
+            workRequestJTable.getColumnModel().getColumn(3).setHeaderValue("Quantity");
             workRequestJTable.getColumnModel().getColumn(4).setResizable(false);
+            workRequestJTable.getColumnModel().getColumn(4).setHeaderValue("Money Earned");
             workRequestJTable.getColumnModel().getColumn(5).setResizable(false);
+            workRequestJTable.getColumnModel().getColumn(5).setHeaderValue("Rewards Earned");
         }
 
         requestTestJButton.setText("Sell Plastic");
@@ -141,9 +186,22 @@ public class PlasticCollectorWorkAreaJPanel extends javax.swing.JPanel {
 
         valueLabel.setText("<value>");
 
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 0, 51));
         jLabel1.setText("Plastic Rewards Earned:");
 
-        sumF.setText("jLabel3");
+        sumF.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        sumF.setText("0");
+
+        requestEmployment.setText("Request Employment");
+        requestEmployment.setEnabled(false);
+        requestEmployment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                requestEmploymentActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,10 +215,12 @@ public class PlasticCollectorWorkAreaJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(jLabel2))
+                        .addComponent(jLabel2)
+                        .addGap(80, 80, 80)
+                        .addComponent(sumF, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(sumF, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(83, 83, 83)
+                        .addComponent(requestEmployment)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -168,37 +228,78 @@ public class PlasticCollectorWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel1)
-                .addGap(61, 61, 61)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sumF, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(sumF, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(52, 52, 52)
+                .addComponent(requestEmployment)
+                .addContainerGap(73, Short.MAX_VALUE))
         );
+
+        EmploymentRequestTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Message", "Receiver", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(EmploymentRequestTable);
+        if (EmploymentRequestTable.getColumnModel().getColumnCount() > 0) {
+            EmploymentRequestTable.getColumnModel().getColumn(0).setResizable(false);
+            EmploymentRequestTable.getColumnModel().getColumn(1).setResizable(false);
+            EmploymentRequestTable.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        jLabel3.setText("Plastic Selling Counter");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(110, 110, 110)
-                        .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(requestTestJButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(refreshTestJButton))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(requestTestJButton)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(refreshTestJButton))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110)
+                .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,20 +311,25 @@ public class PlasticCollectorWorkAreaJPanel extends javax.swing.JPanel {
                         .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(requestTestJButton)
-                    .addComponent(refreshTestJButton))
+                    .addComponent(refreshTestJButton)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(requestTestJButton)
+                        .addGap(39, 39, 39)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
         
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("RequestLabTestJPanel", new SellPlasticJPanel(userProcessContainer, userAccount, enterprise, business));
+        userProcessContainer.add("RequestLabTestJPanel", new SellPlasticJPanel(userProcessContainer, userAccount, enterprise, business, network));
         layout.next(userProcessContainer);
         
     }//GEN-LAST:event_requestTestJButtonActionPerformed
@@ -231,16 +337,67 @@ public class PlasticCollectorWorkAreaJPanel extends javax.swing.JPanel {
     private void refreshTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTestJButtonActionPerformed
 
         populateRequestTable();
+        populateRequestEmploymentTable();
         
     }//GEN-LAST:event_refreshTestJButtonActionPerformed
 
+    private void requestEmploymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestEmploymentActionPerformed
+        // TODO add your handling code here:
+        EmploymentWorkRequest request = new EmploymentWorkRequest();
+        request.setStatus("Requested");
+        request.setSender(userAccount);
+        //request.getSender().getEmployee().getEmail();
+        request.setEmail(userAccount.getEmployee().getEmail());
+        //request.setRewards(FLoa);
+        request.setRewards(Float.parseFloat(sumF.getText()));
+         Organization org = null;
+         
+          
+           
+            
+             for (Network net : business.getNetworkList()){
+                 if(net.getName().equals(network.getName())){
+                     
+            for(Enterprise ep: net.getEnterpriseDirectory().getEnterpriseList())
+            {
+                
+            if(ep instanceof PlasticBankEnterprise)
+            {
+                System.out.println("list"+ ep.getOrganizationDirectory().getOrganizationList());
+         for (Organization organization : ep.getOrganizationDirectory().getOrganizationList()){
+           if(organization instanceof Warehouse){
+                org = organization;
+                System.out.println(org);
+                org.getWorkQueue().getWorkRequestList().add(request);
+                //userAccount.getWorkQueue().getWorkRequestList().add(request);
+                break;
+           }
+            }
+            }
+            }
+             }
+             }
+           if (org!=null){
+            //org.getWorkQueue().getWorkRequestList().add(request);
+            userAccount.getWorkQueue().getWorkRequestList().add(request);
+        } 
+            
+        
+        
+        populateRequestEmploymentTable();
+    }//GEN-LAST:event_requestEmploymentActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable EmploymentRequestTable;
     private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton refreshTestJButton;
+    private javax.swing.JButton requestEmployment;
     private javax.swing.JButton requestTestJButton;
     private javax.swing.JLabel sumF;
     private javax.swing.JLabel valueLabel;

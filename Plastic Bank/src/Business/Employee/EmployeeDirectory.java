@@ -42,6 +42,21 @@ public class EmployeeDirectory {
         return employee;
     }
      
+      public void deleteEmployee(Employee employee){
+       
+        employeeList.remove(employee);
+        //return employee;
+    }
+      
+     
+      
+      public void addEmployee(Employee employee)
+      {
+       employeeList.add(employee);
+      
+      }
+    
+     
 //     public boolean checkIfEmployeeExists(String username, ArrayList<Employee> list)
 //     {
 //     for(Employee e : list)

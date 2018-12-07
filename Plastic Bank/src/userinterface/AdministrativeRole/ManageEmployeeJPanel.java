@@ -286,7 +286,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         String address = addressField.getText();
         Date dob = dateOfBirth.getDate();
         int age = Integer.parseInt(ageField.getText());
-         organization.getEmployeeDirectory().createEmployee(name, email, address, dob, age);
+        organization.getEmployeeDirectory().createEmployee(name, email, address, dob, age);
         populateTable(organization);
         
     }//GEN-LAST:event_addJButtonActionPerformed
