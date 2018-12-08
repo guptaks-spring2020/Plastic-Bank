@@ -22,6 +22,7 @@ import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+
 /**
  *
  * @author nikitalalwani
@@ -33,10 +34,12 @@ public class ProcessPlasticRequestJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private EcoSystem business;
     private Organization organization;
+    private Network network;
+    private RecyclingFactoryEmployeeWorkRequest request;
     /**
      * Creates new form ProcessPlasticRequestJPanel
      */
-    public ProcessPlasticRequestJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Organization organization, EcoSystem business) {
+    public ProcessPlasticRequestJPanel(RecyclingFactoryEmployeeWorkRequest request,JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Organization organization, EcoSystem business, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.userProcessContainer = userProcessContainer;
@@ -44,6 +47,8 @@ public class ProcessPlasticRequestJPanel extends javax.swing.JPanel {
         this.userAccount = account;
         this.business = business;
         this.organization = organization;
+        this.network = network;
+        this.request = request;
         
     }
 
@@ -57,12 +62,16 @@ public class ProcessPlasticRequestJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel3 = new javax.swing.JLabel();
-        costTxt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        trucksTxt = new javax.swing.JTextField();
-        forwardTransport = new javax.swing.JButton();
+        sellPlastic = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        truckstxt = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        gradeOfPlastic = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        rateTextField = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -72,11 +81,11 @@ public class ProcessPlasticRequestJPanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel4.setText("Number of trucks required:");
 
-        forwardTransport.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        forwardTransport.setText("Forward to Transport Department");
-        forwardTransport.addActionListener(new java.awt.event.ActionListener() {
+        sellPlastic.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        sellPlastic.setText("Sell");
+        sellPlastic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                forwardTransportActionPerformed(evt);
+                sellPlasticActionPerformed(evt);
             }
         });
 
@@ -91,6 +100,28 @@ public class ProcessPlasticRequestJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setText("Sell Plastic Portal");
 
+        truckstxt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40" }));
+        truckstxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                truckstxtActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Cost Of Truck");
+
+        gradeOfPlastic.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--Select--", "Grade A", "Grade B", "Grade C" }));
+        gradeOfPlastic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gradeOfPlasticActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Grade of Plastic:");
+
+        jLabel8.setText("Rate:");
+
+        rateTextField.setText("rateTextField");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,87 +132,76 @@ public class ProcessPlasticRequestJPanel extends javax.swing.JPanel {
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel3)))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(backButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(costTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                            .addComponent(trucksTxt))
-                        .addGap(50, 50, 50))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(forwardTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))))
+                    .addComponent(truckstxt, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gradeOfPlastic, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(173, 173, 173))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(173, 173, 173))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(rateTextField)
+                            .addComponent(sellPlastic))
+                        .addGap(98, 98, 98))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(trucksTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(costTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
+                    .addComponent(truckstxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(forwardTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(backButton))
-                .addContainerGap(51, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(gradeOfPlastic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(rateTextField))
+                .addGap(67, 67, 67)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(backButton)
+                    .addComponent(sellPlastic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void forwardTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forwardTransportActionPerformed
+    private void sellPlasticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellPlasticActionPerformed
         // TODO add your handling code here:
-        int numberOfTrucks = Integer.parseInt(trucksTxt.getText());
-        float cost = Float.valueOf(costTxt.getText());
-
-       TransportWorkRequest request = new TransportWorkRequest();
-       request.setNumberOfTrucks(numberOfTrucks);
-       request.setTransportationCost(cost);
-       request.setStatus("Requested");
+        
+        int numbOfTrucks = Integer.parseInt(jLabel2.getText());
+//        jLabel2.setText(String.valueOf(numberOfTrucks*100));
+        int transportationCost = numbOfTrucks*100;
+        int rateToday = Integer.parseInt(rateTextField.getText());
+      
+       request.setNumberOfTrucks(numbOfTrucks);
+       request.setTransportationCost(transportationCost);
+       request.setStatus("completed");
        request.setSender(userAccount);
-       Organization org = null;    
-
-        for (Network network : business.getNetworkList()){            
-            
-            for(Enterprise ep: network.getEnterpriseDirectory().getEnterpriseList())
-            {
-                
-            if(ep instanceof TransportDivisionEnterprise)
-            {
-            for (Organization organization : ep.getOrganizationDirectory().getOrganizationList()){
-            if (organization instanceof LogisticsOrganisation){
-                org = organization;
-                System.out.println(org);
-                break;
-            } 
-        }
-           
-                
-            }
-            }
-                   request.setSource(network.getName());
-        }
-        if (org!=null){
-            org.getWorkQueue().getWorkRequestList().add(request);
-            userAccount.getWorkQueue().getWorkRequestList().add(request);
-        }
-
-        JOptionPane.showMessageDialog(null, "Transport request forwaded to logistics department");
-        trucksTxt.setText("");
-        costTxt.setText("");
-    }//GEN-LAST:event_forwardTransportActionPerformed
+       request.setGrade(gradeOfPlastic.getSelectedItem().toString());
+       request.setSellPrice(transportationCost + request.getQuant()*rateToday);
+        JOptionPane.showMessageDialog(null, "Checked and bought!!");
+       
+    }//GEN-LAST:event_sellPlasticActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
@@ -189,19 +209,48 @@ public class ProcessPlasticRequestJPanel extends javax.swing.JPanel {
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         WarehouseEmployeeWorkArea dwjp = (WarehouseEmployeeWorkArea) component;
-        //dwjp.populatePlasticRequestTable();
+        dwjp.populateManufacturerRequestTable();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backButtonActionPerformed
 
+    private void gradeOfPlasticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeOfPlasticActionPerformed
+        // TODO add your handling code here:
+         if(gradeOfPlastic.getSelectedIndex()==1)
+        {
+        rateTextField.setText(String.valueOf(20));
+        }
+        
+        if(gradeOfPlastic.getSelectedIndex()==2)
+        {
+        rateTextField.setText(String.valueOf(10));
+        }
+        
+        if(gradeOfPlastic.getSelectedIndex()==3)
+        {
+        rateTextField.setText(String.valueOf(5));
+        }
+    }//GEN-LAST:event_gradeOfPlasticActionPerformed
+
+    private void truckstxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_truckstxtActionPerformed
+        // TODO add your handling code here:
+       int trucks = Integer.parseInt(truckstxt.getSelectedItem().toString());
+       int tCost = trucks*100;
+       jLabel2.setText(String.valueOf(tCost));
+    }//GEN-LAST:event_truckstxtActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
-    private javax.swing.JTextField costTxt;
-    private javax.swing.JButton forwardTransport;
+    private javax.swing.JComboBox gradeOfPlastic;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField trucksTxt;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel rateTextField;
+    private javax.swing.JButton sellPlastic;
+    private javax.swing.JComboBox truckstxt;
     // End of variables declaration//GEN-END:variables
 }

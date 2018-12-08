@@ -4,6 +4,8 @@
  */
 package Business.WorkQueue;
 
+import Business.Organization.Warehouse;
+
 /**
  *
  * @author raunak
@@ -19,6 +21,15 @@ public class BorrowPlasticWorkRequest extends WorkRequest{
     
     private String sourceState;
     private String destinationState;
+    private Warehouse warehouse;
+
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
 
     public String getSourceState() {
         return sourceState;

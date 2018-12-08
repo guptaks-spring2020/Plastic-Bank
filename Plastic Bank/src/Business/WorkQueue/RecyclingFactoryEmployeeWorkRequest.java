@@ -11,9 +11,36 @@ package Business.WorkQueue;
  */
 public class RecyclingFactoryEmployeeWorkRequest extends WorkRequest {
     private String grade;
-    private float quantity;
+    //private float quantity;
     private float price;
     private float type;
+    private float sellPrice;
+    private int transportationCost;
+    private int numberOfTrucks;
+
+    public int getTransportationCost() {
+        return transportationCost;
+    }
+
+    public void setTransportationCost(int transportationCost) {
+        this.transportationCost = transportationCost;
+    }
+
+    public int getNumberOfTrucks() {
+        return numberOfTrucks;
+    }
+
+    public void setNumberOfTrucks(int numberOfTrucks) {
+        this.numberOfTrucks = numberOfTrucks;
+    }
+
+    public float getSellPrice() {
+        return sellPrice;
+    }
+
+    public void setSellPrice(float sellPrice) {
+        this.sellPrice = sellPrice;
+    }
 
     public float getType() {
         return type;
@@ -31,13 +58,7 @@ public class RecyclingFactoryEmployeeWorkRequest extends WorkRequest {
         this.grade = grade;
     }
 
-    public float getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(float quantity) {
-        this.quantity = quantity;
-    }
+   
 
     public float getPrice() {
         return price;

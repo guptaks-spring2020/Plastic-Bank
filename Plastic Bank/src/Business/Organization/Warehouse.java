@@ -17,7 +17,16 @@ public class Warehouse extends Organization{
     
     private int plasticCount;
     private int plasticBorrowed;
+    private int plasticLent;
     private Map<String, Integer> plasticTypeTrack;
+
+    public int getPlasticLent() {
+        return plasticLent;
+    }
+
+    public void setPlasticLent(int plasticLent) {
+        this.plasticLent = plasticLent;
+    }
     
 
     public Map<String, Integer> getPlasticTypeTrack() {
@@ -51,6 +60,21 @@ public class Warehouse extends Organization{
     public void addPlastic(int pCount)
     {
     this.plasticCount = this.plasticCount + pCount;
+    }
+    
+     public void addPlasticBorrowed(int pCount)
+    {
+    this.plasticBorrowed = this.plasticBorrowed + pCount;
+    }
+    
+      public void addPlasticLent(int pCount)
+    {
+    this.plasticLent = this.plasticLent + pCount;
+    } 
+     
+    public void subtractPlastic(int pCount)
+    {
+        this.plasticCount = this.plasticCount - pCount;
     }
     
     @Override

@@ -13,6 +13,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.PlasticCollectorWorkRequest;
 import Business.WorkQueue.BorrowPlasticWorkRequest;
 import Business.WorkQueue.EmploymentWorkRequest;
+import Business.WorkQueue.RecyclingFactoryEmployeeWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
@@ -49,6 +50,7 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         populateTable2();
         populateTable3();
         populateEmploymentTable();
+        populateManufacturerRequestTable();
     }
     
     public void populateTable1(){
@@ -147,6 +149,30 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
             }
         }
         plasticCount.setText(String.valueOf(warehouse.getPlasticCount()));
+    }
+    
+    public void populateManufacturerRequestTable()
+    {
+    
+     DefaultTableModel model = (DefaultTableModel)plasticRequestJTable.getModel();
+        
+        model.setRowCount(0);
+        
+        for(WorkRequest request : warehouse.getWorkQueue().getWorkRequestList()){
+            if(request instanceof RecyclingFactoryEmployeeWorkRequest){
+              Object[] row = new Object[8];
+            row[0] = request;
+            row[1] = request.getSender().getEmployee().getName();
+            row[2] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
+            row[3] = request.getStatus();
+            row[4] = request.getQuant();
+            row[5] = ((RecyclingFactoryEmployeeWorkRequest)request).getTransportationCost();
+             row[6] = ((RecyclingFactoryEmployeeWorkRequest)request).getSellPrice();
+             
+            model.addRow(row);
+            }
+        }
+    
     }
        
     
@@ -322,13 +348,13 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 600, 150));
 
-        assignJButton3.setText("Forward To Logistics");
+        assignJButton3.setText("Lend Plastic");
         assignJButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 assignJButton3ActionPerformed(evt);
             }
         });
-        add(assignJButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 840, 170, -1));
+        add(assignJButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 840, 160, -1));
 
         borrowPlastic.setText("Borrow Plastic");
         borrowPlastic.addActionListener(new java.awt.event.ActionListener() {
@@ -428,7 +454,7 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 310, -1, -1));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, -1, -1));
 
         jButton2.setText("Validate Seller");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -441,20 +467,20 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         plasticRequestJTable.setFont(new java.awt.Font("Times", 0, 16)); // NOI18N
         plasticRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Message", "Sender", "Receiver", "Status", "Rewards"
+                "Message", "Sender", "Receiver", "Status", "Quantity", "Transportation Cost", "Sell Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, true
+                true, false, false, false, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -481,6 +507,7 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 1100, 20));
 
         supplyPlastic.setText("Supply Plastic");
+        supplyPlastic.setEnabled(false);
         supplyPlastic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 supplyPlasticActionPerformed(evt);
@@ -489,7 +516,12 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         add(supplyPlastic, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 570, -1, -1));
 
         assignToMe.setText("Assign to me");
-        add(assignToMe, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 570, -1, -1));
+        assignToMe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assignToMeActionPerformed(evt);
+            }
+        });
+        add(assignToMe, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 570, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void assignJButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignJButton1ActionPerformed
@@ -545,6 +577,10 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
 
     private void refreshJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshJButtonActionPerformed
         populateTable1();
+        populateTable2();
+        populateTable3();
+        populateEmploymentTable();
+        populateManufacturerRequestTable();
     }//GEN-LAST:event_refreshJButtonActionPerformed
 
     private void assignJButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignJButton3ActionPerformed
@@ -576,7 +612,7 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         
         request.setStatus("Processing");
         
-        LendPlasticJpanel lendPlasticJpanel = new LendPlasticJpanel();
+        LendPlasticJpanel lendPlasticJpanel = new LendPlasticJpanel(userProcessContainer, request, warehouse);
         userProcessContainer.add("LendPlasticJpanel", lendPlasticJpanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -588,7 +624,7 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         
         
     
-        BorroPlasticJPanel plasticBorrow = new BorroPlasticJPanel(userProcessContainer,userAccount, network, business );
+        BorroPlasticJPanel plasticBorrow = new BorroPlasticJPanel(warehouse, userProcessContainer,userAccount, network, business );
         userProcessContainer.add("BorroPlasticJPanel", plasticBorrow);
       CardLayout layout = (CardLayout) userProcessContainer.getLayout();
        layout.next(userProcessContainer);
@@ -648,10 +684,51 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
 
     private void supplyPlasticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplyPlasticActionPerformed
         // TODO add your handling code here:
+         int selectedRow = plasticRequestJTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please choose a value from the table");
+            return;
+        }
+        
+        RecyclingFactoryEmployeeWorkRequest request = (RecyclingFactoryEmployeeWorkRequest)plasticRequestJTable.getValueAt(selectedRow, 0);
+        if(request.getStatus().equals("Completed"))
+            
+        {
+         JOptionPane.showMessageDialog(null, "This request has already been processed");
+          
+          return;
+        }
+        
+        request.setStatus("Processing");
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-       userProcessContainer.add("ProcessPlastic", new ProcessPlasticRequestJPanel(userProcessContainer, userAccount, enterprise, warehouse, business));
+       userProcessContainer.add("ProcessPlastic", new ProcessPlasticRequestJPanel(request,userProcessContainer, userAccount, enterprise, warehouse, business, network));
        layout.next(userProcessContainer);
     }//GEN-LAST:event_supplyPlasticActionPerformed
+
+    private void assignToMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignToMeActionPerformed
+        // TODO add your handling code here:
+         supplyPlastic.setEnabled(true);
+        int selectedRow = plasticRequestJTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please choose a row from the table");
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)plasticRequestJTable.getValueAt(selectedRow, 0);
+        System.out.println("###"+request.getStatus());
+        if(request.getStatus().equals("Completed"))
+        {
+          JOptionPane.showMessageDialog(null, "This request has already been processed");
+          supplyPlastic.setEnabled(false);
+          return;
+        }
+        request.setReceiver(userAccount);
+        request.setStatus("Pending");
+        populateManufacturerRequestTable();
+        //checkPlastic.setEnabled(false);
+    }//GEN-LAST:event_assignToMeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable EmploymentRequest;

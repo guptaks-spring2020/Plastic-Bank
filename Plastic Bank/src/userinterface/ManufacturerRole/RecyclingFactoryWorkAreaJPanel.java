@@ -29,6 +29,7 @@ public class RecyclingFactoryWorkAreaJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private UserAccount userAccount;
     private RecyclingFactory organization;
+    private Network network;
     /**
      * Creates new form RecyclingFactoryWorkAreaJPanel
      */
@@ -39,6 +40,7 @@ public class RecyclingFactoryWorkAreaJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         this.business = business;
+        this.network = network;
         populateTable();
     }
 
@@ -133,9 +135,8 @@ public class RecyclingFactoryWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_refreshJButtonActionPerformed
 
     private void BuyPlasticBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuyPlasticBtnActionPerformed
-
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("BuyPlasticJPanel", new BuyPlasticJPanel(userProcessContainer, userAccount, enterprise, business));
+        userProcessContainer.add("BuyPlasticJPanel", new BuyPlasticJPanel(userProcessContainer, userAccount, enterprise, business, network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_BuyPlasticBtnActionPerformed
 
@@ -151,8 +152,8 @@ public class RecyclingFactoryWorkAreaJPanel extends javax.swing.JPanel {
             row[2] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
             row[3] = request.getStatus();
             row[4] = ((RecyclingFactoryEmployeeWorkRequest)request).getGrade();
-            row[5] = ((RecyclingFactoryEmployeeWorkRequest)request).getQuantity();
-            row[6] = ((RecyclingFactoryEmployeeWorkRequest)request).getPrice();
+            row[5] = ((RecyclingFactoryEmployeeWorkRequest)request).getQuant();
+            row[6] = ((RecyclingFactoryEmployeeWorkRequest)request).getSellPrice();
             model.addRow(row);
         }
     }
