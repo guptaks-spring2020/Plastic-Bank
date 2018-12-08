@@ -57,7 +57,7 @@ public abstract class Organization {
     }
     
     public enum Type{
-        Admin("Admin Organization"), IdentifyCollectors("Identify Collectors"), Warehouse("Warehouse"), LabourDepartment("Labour Department");
+        Admin("Admin Organization"), IdentifyCollectors("Identify Collectors"), Warehouse("Warehouse"), LabourDepartment("Labour Department"),Logistics("Logistics Department"),RecyclingFactory("Recycling Factory");
         private String value;
         private Type(String value) {
             this.value = value;

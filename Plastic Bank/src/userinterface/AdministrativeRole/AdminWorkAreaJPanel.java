@@ -4,6 +4,7 @@ package userinterface.AdministrativeRole;
 
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
+import Business.Enterprise.PlasticBankEnterprise;
 import Business.Enterprise.PlasticCorporationEnterprise;
 import Business.Network.Network;
 import java.awt.CardLayout;
@@ -21,6 +22,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     /** Creates new form AdminWorkAreaJPanel */
     public AdminWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise, EcoSystem business, Network network) {
         initComponents();
+        transferRequest.setVisible(false);
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         this.business = business;
@@ -28,7 +30,16 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         if(enterprise instanceof PlasticCorporationEnterprise)
         {
         manageEmployeeJButton.setText("Register Poor Collector");
+        
         }
+        
+        
+        if(enterprise instanceof PlasticBankEnterprise)
+        {
+        //transferRequest.setEnabled(true);
+        transferRequest.setVisible(true);
+        }
+        
     }
     
     /** This method is called from within the constructor to
@@ -45,6 +56,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         manageOrganizationJButton = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
+        transferRequest = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -59,7 +71,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
                 userJButtonActionPerformed(evt);
             }
         });
-        add(userJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 349, 230, 50));
+        add(userJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, 230, 50));
 
         manageEmployeeJButton.setText("Manage Employee");
         manageEmployeeJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -83,6 +95,15 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
         valueLabel.setText("<value>");
         add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 200, -1));
+
+        transferRequest.setText("Manage Transfer Request");
+        transferRequest.setFocusTraversalKeysEnabled(false);
+        transferRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transferRequestActionPerformed(evt);
+            }
+        });
+        add(transferRequest, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, 230, 50));
     }// </editor-fold>//GEN-END:initComponents
 
     private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed
@@ -115,6 +136,10 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageOrganizationJButtonActionPerformed
+
+    private void transferRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferRequestActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_transferRequestActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -122,6 +147,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton manageEmployeeJButton;
     private javax.swing.JButton manageOrganizationJButton;
+    private javax.swing.JButton transferRequest;
     private javax.swing.JButton userJButton;
     private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables

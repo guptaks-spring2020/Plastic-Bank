@@ -5,8 +5,10 @@
 package userinterface.AdministrativeRole;
 
 import Business.Enterprise.Enterprise;
+import Business.Enterprise.ManufacturerEnterprise;
 import Business.Enterprise.PlasticBankEnterprise;
 import Business.Enterprise.PlasticCorporationEnterprise;
+import Business.Enterprise.TransportDivisionEnterprise;
 import Business.Organization.Organization;
 import Business.Organization.Organization.Type;
 import Business.Organization.OrganizationDirectory;
@@ -53,6 +55,18 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                     if (!type.getValue().equals(Type.Admin.getValue()) && !type.getValue().equals(Type.IdentifyCollectors.getValue()))
                         organizationJComboBox.addItem(type);
                 }
+                 
+                 if(enterprise instanceof ManufacturerEnterprise)
+               {
+                   if (type.getValue().equals(Type.RecyclingFactory.getValue()))
+                       organizationJComboBox.addItem(type);
+               }
+
+               if(enterprise instanceof TransportDivisionEnterprise)
+               {
+                   if (!type.getValue().equals(Type.Admin.getValue()) && !type.getValue().equals(Type.IdentifyCollectors.getValue()) && !type.getValue().equals(Type.Warehouse.getValue()) && !type.getValue().equals(Type.RecyclingFactory.getValue()) && !type.getValue().equals(Type.LabourDepartment.getValue()))
+                       organizationJComboBox.addItem(type);
+               }
                
             }
         }

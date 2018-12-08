@@ -13,10 +13,34 @@ import Business.Organization.Organization;
 import Business.PoorCollectors.PoorCollectors;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.CardLayout;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Properties;
+import java.util.logging.Level;
+import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import java.util.logging.Logger;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 
 /**
  *
@@ -309,13 +333,121 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
             }
         }
 
-        
+                    sendMail(userName);
         organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
                      popData();
+         JOptionPane.showMessageDialog(null, "Congratulations!!, Your account has been created and details has been sent to your email id");
+
         
        
     }//GEN-LAST:event_createUserJButtonActionPerformed
 
+    private void sendMail(String email){
+       // TODO code application logic here
+       Properties props = new Properties();
+       props.put("mail.smtp.host", "smtp.gmail.com");
+       props.put("mail.smtp.socketFactory.port", "465");
+       props.put("mail.smtp.socketFactory.class",
+               "javax.net.ssl.SSLSocketFactory");
+       props.put("mail.smtp.auth", "true");
+       props.put("mail.smtp.port", "465");
+       try {
+           sendEmail(props, email, "Congratulations", "Mail sent successfully");
+       } catch (MessagingException ex) {
+           Logger.getLogger(ManageUserAccountJPanel.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (IOException ex) {
+           Logger.getLogger(ManageUserAccountJPanel.class.getName()).log(Level.SEVERE, null, ex);
+       }
+   }
+    
+     public static void writePdf(OutputStream outputStream) throws Exception {
+       Document document = new Document();
+       PdfWriter.getInstance(document, outputStream);
+
+       document.open();
+
+       document.addTitle("Congratulations!!!");
+       document.addSubject("You are now a user of this Ecosystem");
+       document.addKeywords("iText, email");
+       document.addAuthor("Jee Vang");
+       document.addCreator("Jee Vang");
+
+       Paragraph paragraph = new Paragraph();
+       paragraph.add(new Chunk("hello!"));
+       document.add(paragraph);
+
+       document.close();
+   }
+    
+     
+     public void sendEmail(Properties smtpProperties, String toAddress,
+           String subject, String message)
+           throws AddressException, MessagingException, IOException {
+
+       String sender = "nikitalalwani2807@gmail.com"; //replace this with a valid sender email address
+       String receiver = toAddress; //replace this with a valid recipient email address
+       String content = "dummy content";
+       // creates a new session with an authenticator
+       Authenticator auth = new Authenticator() {
+           public PasswordAuthentication getPasswordAuthentication() {
+               return new PasswordAuthentication("nikitalalwani2807@gmail.com", "Nikita@1993");
+           }
+       };
+       Session session = Session.getInstance(smtpProperties, auth);
+
+       try {
+           //construct the text body part
+           MimeBodyPart textBodyPart = new MimeBodyPart();
+           textBodyPart.setText(content);
+
+           //now write the PDF content to the output stream
+           ByteArrayOutputStream   outputStream = new ByteArrayOutputStream();
+           writePdf(outputStream);
+           byte[] bytes = outputStream.toByteArray();
+
+           //construct the pdf body part
+           DataSource dataSource = new ByteArrayDataSource(bytes, "application/pdf");
+           MimeBodyPart pdfBodyPart = new MimeBodyPart();
+           pdfBodyPart.setDataHandler(new DataHandler(dataSource));
+           pdfBodyPart.setFileName("test.pdf");
+
+           //construct the mime multi part
+           MimeMultipart mimeMultipart = new MimeMultipart();
+           mimeMultipart.addBodyPart(textBodyPart);
+           mimeMultipart.addBodyPart(pdfBodyPart);
+
+           //create the sender/recipient addresses
+           InternetAddress iaSender = new InternetAddress(sender);
+           InternetAddress iaRecipient = new InternetAddress(receiver);
+
+           //construct the mime message
+           MimeMessage mimeMessage = new MimeMessage(session);
+           mimeMessage.setSender(iaSender);
+           mimeMessage.setSubject(subject);
+           mimeMessage.setRecipient(Message.RecipientType.TO, iaRecipient);
+           mimeMessage.setContent(mimeMultipart);
+
+           //send off the email
+           Transport.send(mimeMessage);
+
+           System.out.println("sent from " + sender +
+                   ", to " + receiver +
+                   "; server = " + "smtp.gmail.com" + ", port = " + 587);
+       } catch(Exception ex) {
+         JOptionPane.showMessageDialog(null, "Please provide a valid email id");
+
+           ex.printStackTrace();
+       } finally {
+           //clean off
+//            if(null != outputStream) {
+//                try { outputStream.close(); outputStream = null; }
+//                catch(Exception ex) { }
+//            }
+       }
+
+   }
+
+  
     private void backjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backjButton1ActionPerformed
         // TODO add your handling code here:
         container.remove(this);
