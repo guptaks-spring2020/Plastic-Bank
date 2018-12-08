@@ -7,6 +7,7 @@ import Business.Enterprise.Enterprise;
 import Business.Enterprise.PlasticBankEnterprise;
 import Business.Enterprise.PlasticCorporationEnterprise;
 import Business.Network.Network;
+import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -19,13 +20,15 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     JPanel userProcessContainer;
     Enterprise enterprise;
     EcoSystem business;
+    UserAccount userAccount;
     /** Creates new form AdminWorkAreaJPanel */
-    public AdminWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise, EcoSystem business, Network network) {
+    public AdminWorkAreaJPanel(UserAccount userAccount, JPanel userProcessContainer, Enterprise enterprise, EcoSystem business, Network network) {
         initComponents();
         transferRequest.setVisible(false);
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         this.business = business;
+        this.userAccount = userAccount;
         valueLabel.setText(enterprise.getName());
         if(enterprise instanceof PlasticCorporationEnterprise)
         {
@@ -139,6 +142,11 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void transferRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferRequestActionPerformed
         // TODO add your handling code here:
+        
+        HirePoorCollector hirePoorCollector = new HirePoorCollector(userAccount, userProcessContainer, enterprise);
+        userProcessContainer.add("manageOrganizationJPanel", hirePoorCollector);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_transferRequestActionPerformed
     
     

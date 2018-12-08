@@ -357,34 +357,53 @@ public class PlasticCollectorWorkAreaJPanel extends javax.swing.JPanel {
         request.setEmail(userAccount.getEmployee().getEmail());
         //request.setRewards(FLoa);
         request.setRewards(Float.parseFloat(sumF.getText()));
-         Organization org = null;
+         Enterprise enterprise = null;
          
           
            
             
-             for (Network net : business.getNetworkList()){
-                 if(net.getName().equals(network.getName())){
+//             for (Network net : business.getNetworkList()){
+//                 if(net.getName().equals(network.getName())){
+//                     
+//            for(Enterprise ep: net.getEnterpriseDirectory().getEnterpriseList())
+//            {
+//                
+//            if(ep instanceof PlasticBankEnterprise)
+//            {
+//                System.out.println("list"+ ep.getOrganizationDirectory().getOrganizationList());
+//         for (Organization organization : ep.getOrganizationDirectory().getOrganizationList()){
+//           if(organization instanceof Warehouse){
+//                org = organization;
+//                System.out.println(org);
+//                org.getWorkQueue().getWorkRequestList().add(request);
+//                //userAccount.getWorkQueue().getWorkRequestList().add(request);
+//                break;
+//           }
+//            }
+//            }
+//            }
+//             }
+//             }
+             
+             
                      
-            for(Enterprise ep: net.getEnterpriseDirectory().getEnterpriseList())
+            for(Enterprise ep: network.getEnterpriseDirectory().getEnterpriseList())
             {
                 
             if(ep instanceof PlasticBankEnterprise)
             {
-                System.out.println("list"+ ep.getOrganizationDirectory().getOrganizationList());
-         for (Organization organization : ep.getOrganizationDirectory().getOrganizationList()){
-           if(organization instanceof Warehouse){
-                org = organization;
-                System.out.println(org);
-                org.getWorkQueue().getWorkRequestList().add(request);
+          
+                enterprise = ep;
+                System.out.println(ep);
+                ep.getWorkQueue().getWorkRequestList().add(request);
                 //userAccount.getWorkQueue().getWorkRequestList().add(request);
                 break;
-           }
+           
             }
             }
-            }
-             }
-             }
-           if (org!=null){
+             
+             
+           if (enterprise!=null){
             //org.getWorkQueue().getWorkRequestList().add(request);
             userAccount.getWorkQueue().getWorkRequestList().add(request);
         } 
@@ -392,6 +411,7 @@ public class PlasticCollectorWorkAreaJPanel extends javax.swing.JPanel {
         
         
         populateRequestEmploymentTable();
+        requestEmployment.setEnabled(false);
     }//GEN-LAST:event_requestEmploymentActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

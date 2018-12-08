@@ -41,6 +41,7 @@ public class BorroPlasticJPanel extends javax.swing.JPanel {
         this.business = business;
         this.network = network;
         this.warehouse = warehouse;
+        jLabel5.setText(network.getName());
         //valueLabel.setText(enterprise.getName());
     }
 

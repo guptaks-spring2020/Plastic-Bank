@@ -13,6 +13,7 @@ import Business.Organization.Organization;
 import Business.PoorCollectors.PoorCollectors;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.EmploymentWorkRequest;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
@@ -64,7 +65,8 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
        // employeeJComboBox.removeAllItems();
         popData();
     }
-
+ 
+   
     public void popOrganizationComboBox() {
         organizationJComboBox.removeAllItems();
 

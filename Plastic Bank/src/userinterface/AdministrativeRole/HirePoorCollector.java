@@ -5,6 +5,15 @@
  */
 package userinterface.AdministrativeRole;
 
+import Business.Enterprise.Enterprise;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.EmploymentWorkRequest;
+import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author kshitiz
@@ -14,10 +23,46 @@ public class HirePoorCollector extends javax.swing.JPanel {
     /**
      * Creates new form HirePoorCollector
      */
+    private JPanel userProcessContainer;
+    private Enterprise enterprise;
+    private UserAccount userAccount;
     public HirePoorCollector() {
-        initComponents();
     }
 
+    HirePoorCollector(UserAccount userAccount, JPanel userProcessContainer, Enterprise enterprise) {
+        
+        initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
+        populateTable1();
+    }
+
+    
+     public void populateTable1(){
+        DefaultTableModel model = (DefaultTableModel)hirePlasticCollector.getModel();
+        
+        model.setRowCount(0);
+        System.out.println("##"+enterprise.getWorkQueue().getWorkRequestList());
+        for(WorkRequest request : enterprise.getWorkQueue().getWorkRequestList()){
+            
+            if(request instanceof EmploymentWorkRequest)
+            {
+            Object[] row = new Object[8];
+            row[0] = request;
+            row[1] = request.getSender();
+            row[2] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
+             row[3] = request.getStatus();
+           
+            model.addRow(row);
+            }
+            
+            
+            
+         
+        }
+       
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,8 +75,9 @@ public class HirePoorCollector extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         hirePlasticCollector = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        assignToMe = new javax.swing.JButton();
+        hireButton = new javax.swing.JButton();
+        back = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -43,7 +89,7 @@ public class HirePoorCollector extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Message", "Sender", "Receiver", "Status"
+                "Message", "Plastic Collector Name", "Receiver", "Status"
             }
         ) {
             Class[] types = new Class [] {
@@ -66,62 +112,127 @@ public class HirePoorCollector extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("Hire Plastic Collector Work Area");
 
-        jButton1.setText("Assign to me");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        assignToMe.setText("Assign to me");
+        assignToMe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                assignToMeActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Hire");
+        hireButton.setText("Hire");
+        hireButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hireButtonActionPerformed(evt);
+            }
+        });
+
+        back.setText("<--Back");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(back)
+                .addGap(29, 29, 29)
+                .addComponent(assignToMe)
+                .addGap(87, 87, 87)
+                .addComponent(hireButton)
                 .addGap(177, 177, 177))
             .addGroup(layout.createSequentialGroup()
-                .addGap(195, 195, 195)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(195, 195, 195)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(79, 79, 79)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(assignToMe)
+                    .addComponent(hireButton)
+                    .addComponent(back))
                 .addGap(105, 105, 105))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(158, 158, 158)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(159, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void assignToMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignToMeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+           hireButton.setEnabled(true);
+        int selectedRow = hirePlasticCollector.getSelectedRow();
+        
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please choose a row from the table");
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)hirePlasticCollector.getValueAt(selectedRow, 0);
+        System.out.println("###"+request.getStatus());
+        if(request.getStatus().equals("Completed"))
+        {
+          JOptionPane.showMessageDialog(null, "This request has already been processed");
+          hireButton.setEnabled(false);
+          return;
+        }
+        request.setReceiver(userAccount);
+        request.setStatus("Pending");
+        populateTable1();
+    }//GEN-LAST:event_assignToMeActionPerformed
+
+    private void hireButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hireButtonActionPerformed
+        // TODO add your handling code here:
+          int selectedRow = hirePlasticCollector.getSelectedRow();
+        
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please choose a value from the table");
+            return;
+        }
+        
+        EmploymentWorkRequest request = (EmploymentWorkRequest)hirePlasticCollector.getValueAt(selectedRow, 0);
+        if(request.getStatus().equals("Completed"))
+            
+        {
+         JOptionPane.showMessageDialog(null, "This request has already been processed");
+          
+          return;
+        }
+        
+        request.setStatus("Processing");
+        
+        //ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, request, warehouse);
+        ManageEmployeeJPanel manageEmployeeJPanel = new ManageEmployeeJPanel(userProcessContainer, request, enterprise);
+        userProcessContainer.add("processWorkRequestJPanel", manageEmployeeJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+        
+    }//GEN-LAST:event_hireButtonActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        // TODO add your handling code here:
+         
+    }//GEN-LAST:event_backActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton assignToMe;
+    private javax.swing.JButton back;
+    private javax.swing.JButton hireButton;
     private javax.swing.JTable hirePlasticCollector;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

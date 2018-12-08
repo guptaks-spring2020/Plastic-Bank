@@ -271,7 +271,7 @@ public class HirePlasticSeller extends javax.swing.JPanel {
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         WarehouseEmployeeWorkArea dwjp = (WarehouseEmployeeWorkArea) component;
-        dwjp.populateEmploymentTable();
+        //sdwjp.populateEmploymentTable();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
