@@ -145,8 +145,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void loginJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginJButtonActionPerformed
         // Get user name
+        System.out.println("Inside User Login Module");
         String userName = userNameJTextField.getText();
         // Get Password
+        System.out.println("logged in with user " + userName);
         char[] passwordCharArray = passwordField.getPassword();
         String password = String.valueOf(passwordCharArray);
         

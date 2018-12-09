@@ -203,7 +203,20 @@ public class ProcessPlasticRequestJPanel extends javax.swing.JPanel {
 
     private void sellPlasticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellPlasticActionPerformed
         // TODO add your handling code here:
+        if(truckstxt.getSelectedIndex()==0)
+        {
+         JOptionPane.showMessageDialog(null, "Please select a value");
+         return;
         
+        
+        }
+        
+        if(gradeOfPlastic.getSelectedIndex()==0)
+        {
+        
+         JOptionPane.showMessageDialog(null, "Please select a value");
+         return;
+        }
         int numbOfTrucks = Integer.parseInt(jLabel2.getText());
 //        jLabel2.setText(String.valueOf(numberOfTrucks*100));
         int transportationCost = numbOfTrucks*100;

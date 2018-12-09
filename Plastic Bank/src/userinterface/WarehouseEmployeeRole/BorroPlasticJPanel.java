@@ -172,6 +172,7 @@ public class BorroPlasticJPanel extends javax.swing.JPanel {
         request.setQuant(quantity);
         request.setSender(userAccount);
         request.setStatus("Requested");
+        //request.setSourceState(network.getName());
         //request.setDestinationState(network.getName());
         //request.setType(type);
         request.setWarehouse(warehouse);

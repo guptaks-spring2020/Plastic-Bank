@@ -30,7 +30,7 @@ public class LendPlasticJpanel extends javax.swing.JPanel {
         this.request = request;
         this.warehouse = warehouse;
         
-        jLabel3.setText(request.getDestinationState());
+        jLabel3.setText(request.getSourceState());
         jLabel5.setText(String.valueOf(request.getQuant()));
     }
 
