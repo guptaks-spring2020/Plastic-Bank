@@ -15,9 +15,18 @@ public class Employee {
     private String name;
      private String address;
     private String email;
+    private String phoneNumber;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
     private int age;
     private int id;
-    private static int count = 1000;
+    private static int count = 1;
     private Date dob;
 
     public String getAddress() {

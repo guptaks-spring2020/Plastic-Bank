@@ -120,15 +120,10 @@ public class LendPlasticJpanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(81, 81, 81))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel2))
-                                .addGap(6, 6, 6)))
-                        .addGap(148, 148, 148)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2))
+                        .addGap(154, 154, 154)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel3))
@@ -182,14 +177,17 @@ public class LendPlasticJpanel extends javax.swing.JPanel {
         
          int money = Integer.parseInt(priceField.getText());
         request.setMoneyGiven(money);
-        request.setMessage(commentField.getText());
-        request.setStatus("Completed");
+        
         
        // JOptionPane.showMessageDialog(null, "Checked and bought!!"); 
         request.getWarehouse().addPlastic(request.getQuant());
+        request.getWarehouse().addPlasticBorrowed(request.getQuant());
         warehouse.subtractPlastic(request.getQuant());
-        warehouse.addPlasticLent(money);
+        warehouse.addPlasticLent(request.getQuant());
+        //warehouse.addPlasticBorrowed(money);
         JOptionPane.showMessageDialog(null, "Employee has been added to the Organization");
+        request.setMessage(commentField.getText());
+        request.setStatus("Completed");
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

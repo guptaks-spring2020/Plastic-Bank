@@ -19,6 +19,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -77,7 +78,7 @@ public class SellPlasticJPanel extends javax.swing.JPanel {
                 requestTestJButtonActionPerformed(evt);
             }
         });
-        add(requestTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 360, -1, -1));
+        add(requestTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 360, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel1.setText("Quantity:");
@@ -96,9 +97,9 @@ public class SellPlasticJPanel extends javax.swing.JPanel {
         add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
 
         valueLabel.setText("<value>");
-        add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 130, -1));
+        add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 130, -1));
 
-        enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         enterpriseLabel.setText("EnterPrise :");
         add(enterpriseLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 120, 30));
 
@@ -107,14 +108,15 @@ public class SellPlasticJPanel extends javax.swing.JPanel {
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 80, -1));
 
         jLabel3.setText("Kgs");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, -1, -1));
 
+        typeOfPlastic.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         typeOfPlastic.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bottles", "polythene bags", "straws" }));
         add(typeOfPlastic, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, 140, 40));
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 16)); // NOI18N
-        jLabel4.setText("Please provide the Quantity and the type of plastics");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 440, -1));
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel4.setText("Sell Plastic");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 120, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
@@ -160,10 +162,24 @@ public class SellPlasticJPanel extends javax.swing.JPanel {
         if (org!=null){
 //            org.getWorkQueue().getWorkRequestList().add(request);
             userAccount.getWorkQueue().getWorkRequestList().add(request);
+             JOptionPane.showMessageDialog(null, "Plastic successfully sold");
+             goBack();
         }
         
     }//GEN-LAST:event_requestTestJButtonActionPerformed
 
+    public void goBack()
+    {
+     
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        PlasticCollectorWorkAreaJPanel dwjp = (PlasticCollectorWorkAreaJPanel) component;
+        dwjp.populateRequestTable();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }
+    
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
         
         userProcessContainer.remove(this);

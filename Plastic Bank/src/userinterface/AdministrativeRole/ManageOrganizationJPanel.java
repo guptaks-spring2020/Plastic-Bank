@@ -8,7 +8,6 @@ import Business.Enterprise.Enterprise;
 import Business.Enterprise.ManufacturerEnterprise;
 import Business.Enterprise.PlasticBankEnterprise;
 import Business.Enterprise.PlasticCorporationEnterprise;
-import Business.Enterprise.TransportDivisionEnterprise;
 import Business.Organization.Organization;
 import Business.Organization.Organization.Type;
 import Business.Organization.OrganizationDirectory;
@@ -52,7 +51,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                 
                  if(enterprise instanceof PlasticBankEnterprise)
                 {
-                    if (!type.getValue().equals(Type.Admin.getValue()) && !type.getValue().equals(Type.IdentifyCollectors.getValue()))
+                    if (type.getValue().equals(Type.Warehouse.getValue())||type.getValue().equals(Type.LabourDepartment.getValue()))
                         organizationJComboBox.addItem(type);
                 }
                  
@@ -62,11 +61,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                        organizationJComboBox.addItem(type);
                }
 
-               if(enterprise instanceof TransportDivisionEnterprise)
-               {
-                   if (!type.getValue().equals(Type.Admin.getValue()) && !type.getValue().equals(Type.IdentifyCollectors.getValue()) && !type.getValue().equals(Type.Warehouse.getValue()) && !type.getValue().equals(Type.RecyclingFactory.getValue()) && !type.getValue().equals(Type.LabourDepartment.getValue()))
-                       organizationJComboBox.addItem(type);
-               }
+              
                
             }
         }

@@ -42,10 +42,7 @@ public class OrganizationDirectory {
            organization = new RecyclingFactory();
            organizationList.add(organization);
        }
-        else if (type.getValue().equals(Type.Logistics.getValue())){
-          organization = new LogisticsOrganisation();
-          organizationList.add(organization);
-       }
+        
         
         return organization;
     }

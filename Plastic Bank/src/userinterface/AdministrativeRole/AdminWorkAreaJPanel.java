@@ -9,6 +9,8 @@ import Business.Enterprise.PlasticCorporationEnterprise;
 import Business.Network.Network;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JPanel;
 
 /**
@@ -109,6 +111,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         add(transferRequest, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, 230, 50));
     }// </editor-fold>//GEN-END:initComponents
 
+  
     private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed
         // TODO add your handling code here:
         ManageUserAccountJPanel muajp = new ManageUserAccountJPanel(userProcessContainer, enterprise, business);

@@ -39,10 +39,7 @@ public class EnterpriseDirectory {
             enterprise=new PlasticBankEnterprise(name);
             enterpriseList.add(enterprise);
         }
-        if(type==Enterprise.EnterpriseType.TrasnportDivision){
-            enterprise=new TransportDivisionEnterprise(name);
-            enterpriseList.add(enterprise);
-        }
+       
         if(type==Enterprise.EnterpriseType.Manufacturer){
             enterprise=new ManufacturerEnterprise(name);
             enterpriseList.add(enterprise);

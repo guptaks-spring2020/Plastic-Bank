@@ -52,6 +52,7 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         populateTable3();
         //populateEmploymentTable();
         populateManufacturerRequestTable();
+        jLabel10.setText(network.getName());
     }
     
     public void populateTable1(){
@@ -104,12 +105,12 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
           //  request.getReceiver().getRole().
         }
         
-        plasticCount.setText(String.valueOf(warehouse.getPlasticCount()));
+        
     }
     
      
      public void populateTable3(){
-        DefaultTableModel model = (DefaultTableModel)borrowPlasticTable2.getModel();
+        DefaultTableModel model = (DefaultTableModel)lentTable.getModel();
         
         model.setRowCount(0);
         
@@ -127,7 +128,7 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
             model.addRow(row);
             }
         }
-        plasticCount.setText(String.valueOf(warehouse.getPlasticCount()));
+        
     }
      
      
@@ -200,7 +201,7 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         assignJButton3 = new javax.swing.JButton();
         borrowPlastic = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        borrowPlasticTable2 = new javax.swing.JTable();
+        lentTable = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         plasticRequestJTable = new javax.swing.JTable();
@@ -209,6 +210,7 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         supplyPlastic = new javax.swing.JButton();
         assignToMe = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -332,13 +334,9 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
             PurchaseCounter.getColumnModel().getColumn(2).setResizable(false);
             PurchaseCounter.getColumnModel().getColumn(3).setResizable(false);
             PurchaseCounter.getColumnModel().getColumn(4).setResizable(false);
-            PurchaseCounter.getColumnModel().getColumn(4).setHeaderValue("Plastic Type");
             PurchaseCounter.getColumnModel().getColumn(5).setResizable(false);
-            PurchaseCounter.getColumnModel().getColumn(5).setHeaderValue("Grade");
             PurchaseCounter.getColumnModel().getColumn(6).setResizable(false);
-            PurchaseCounter.getColumnModel().getColumn(6).setHeaderValue("Quantity");
             PurchaseCounter.getColumnModel().getColumn(7).setResizable(false);
-            PurchaseCounter.getColumnModel().getColumn(7).setHeaderValue("Money Given");
         }
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 960, 170));
@@ -359,8 +357,8 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         });
         add(borrowPlastic, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 810, 150, -1));
 
-        borrowPlasticTable2.setFont(new java.awt.Font("Times", 0, 16)); // NOI18N
-        borrowPlasticTable2.setModel(new javax.swing.table.DefaultTableModel(
+        lentTable.setFont(new java.awt.Font("Times", 0, 16)); // NOI18N
+        lentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -386,15 +384,15 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(borrowPlasticTable2);
-        if (borrowPlasticTable2.getColumnModel().getColumnCount() > 0) {
-            borrowPlasticTable2.getColumnModel().getColumn(1).setResizable(false);
-            borrowPlasticTable2.getColumnModel().getColumn(2).setResizable(false);
-            borrowPlasticTable2.getColumnModel().getColumn(3).setResizable(false);
-            borrowPlasticTable2.getColumnModel().getColumn(4).setResizable(false);
-            borrowPlasticTable2.getColumnModel().getColumn(5).setResizable(false);
-            borrowPlasticTable2.getColumnModel().getColumn(6).setResizable(false);
-            borrowPlasticTable2.getColumnModel().getColumn(7).setResizable(false);
+        jScrollPane3.setViewportView(lentTable);
+        if (lentTable.getColumnModel().getColumnCount() > 0) {
+            lentTable.getColumnModel().getColumn(1).setResizable(false);
+            lentTable.getColumnModel().getColumn(2).setResizable(false);
+            lentTable.getColumnModel().getColumn(3).setResizable(false);
+            lentTable.getColumnModel().getColumn(4).setResizable(false);
+            lentTable.getColumnModel().getColumn(5).setResizable(false);
+            lentTable.getColumnModel().getColumn(6).setResizable(false);
+            lentTable.getColumnModel().getColumn(7).setResizable(false);
         }
 
         add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 650, 540, 150));
@@ -461,6 +459,9 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
             }
         });
         add(assignToMe, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 530, -1, -1));
+
+        jLabel10.setText("jLabel10");
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void assignJButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignJButton1ActionPerformed
@@ -526,14 +527,14 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         // TODO add your handling code here:
         
         
-          int selectedRow = borrowPlasticTable2.getSelectedRow();
+          int selectedRow = lentTable.getSelectedRow();
         
         if (selectedRow < 0){
             JOptionPane.showMessageDialog(null, "Please choose a value from the table");
             return;
         }
         
-        BorrowPlasticWorkRequest request = (BorrowPlasticWorkRequest)borrowPlasticTable2.getValueAt(selectedRow, 0);
+        BorrowPlasticWorkRequest request = (BorrowPlasticWorkRequest)lentTable.getValueAt(selectedRow, 0);
         
         if(request.getQuant()>warehouse.getPlasticCount())
         {
@@ -606,7 +607,7 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
         
         WorkRequest request = (WorkRequest)plasticRequestJTable.getValueAt(selectedRow, 0);
         System.out.println("###"+request.getStatus());
-        if(request.getStatus().equals("Completed"))
+        if(request.getStatus().equals("completed"))
         {
           JOptionPane.showMessageDialog(null, "This request has already been processed");
           supplyPlastic.setEnabled(false);
@@ -625,8 +626,8 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
     private javax.swing.JButton assignToMe;
     private javax.swing.JButton borrowPlastic;
     private javax.swing.JTable borrowPlasticTable;
-    private javax.swing.JTable borrowPlasticTable2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -638,6 +639,7 @@ public class WarehouseEmployeeWorkArea extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTable lentTable;
     private javax.swing.JLabel plasticCount;
     private javax.swing.JTable plasticRequestJTable;
     private javax.swing.JButton processJButton;

@@ -22,7 +22,7 @@ public abstract class Enterprise extends Organization{
     }
     
     public enum EnterpriseType{
-        PlasticCorporation("Plastic Corporation Office"),PlasticBank("Plastic Bank"),TrasnportDivision("Transport Division"), Manufacturer("Manufacturer");
+        PlasticCorporation("Plastic Corporation Office"),PlasticBank("Plastic Bank"), Manufacturer("Manufacturer");
         
         private String value;
         

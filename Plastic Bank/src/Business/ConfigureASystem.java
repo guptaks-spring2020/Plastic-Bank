@@ -22,7 +22,7 @@ public class ConfigureASystem {
         //create user account
         
         
-        Employee employee = system.getEmployeeDirectory().createEmployee("Central India","india@gmail.com","huntington",new Date(),25);
+        Employee employee = system.getEmployeeDirectory().createEmployee("Central India","6176698536","huntington",new Date(),25);
         
         UserAccount ua = system.getUserAccountDirectory().createUserAccount("India", "India", employee, new SystemAdminRole());
         
