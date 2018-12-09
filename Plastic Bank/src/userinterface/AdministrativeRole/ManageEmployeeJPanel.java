@@ -14,6 +14,7 @@ import Business.WorkQueue.EmploymentWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.Date;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -122,6 +123,23 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
             row[1] = employee.getName();
             model.addRow(row);
         }
+    }
+    
+     private boolean nameValidation() {
+
+        return Pattern.matches("^[\\p{L} .'-]+$", nameJTextField.getText());
+    }
+
+    private boolean phoneNumberValidation()
+    {
+    
+    return Pattern.matches("\\d{10}", phoneNumberField.getText());
+    }
+    
+    private boolean ageValidation()
+    {
+    
+    return Pattern.matches("^[1-9]$|^[1-9][0-9]$|^(100)$", ageField.getText());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -261,18 +279,18 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                     .addGap(160, 160, 160)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel2)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel7)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel5))
                             .addGap(24, 24, 24)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(ageField, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(dateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nameJTextField)
-                                    .addComponent(ageField, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel6)
-                        .addComponent(jLabel2))
+                                .addComponent(nameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGap(670, 670, 670))
                 .addGroup(layout.createSequentialGroup()
                     .addGap(114, 114, 114)
@@ -323,8 +341,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(organizationEmpJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(organizationEmpJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(105, 105, 105)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -334,11 +351,11 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
                                     .addComponent(nameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(rLabel)
                                     .addComponent(phoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(ageField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(28, 28, 28)
+                                .addGap(30, 30, 30)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(ageField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
                                     .addComponent(dateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -348,13 +365,33 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(backJButton)
-                            .addComponent(addJButton))
-                        .addGap(17, 17, 17))))
+                            .addComponent(addJButton))))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void addJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJButtonActionPerformed
         
+          if(!nameValidation())
+       {
+           JOptionPane.showMessageDialog(null, "Name should not contain numbers");
+           return;
+       }
+        
+        
+                
+           if(!phoneNumberValidation())
+       {
+           JOptionPane.showMessageDialog(null, "Please enter in the 10 digits mobile number format");
+           return;
+       }        
+                
+              if(!ageValidation())
+       {
+           JOptionPane.showMessageDialog(null, "input should only be in numbers");
+           return;
+       }        
+                  
         Organization organization = (Organization) organizationEmpJComboBox.getSelectedItem();
        
         String name = nameJTextField.getText();
@@ -362,7 +399,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         String phoneNumber = phoneNumberField.getText();
         String address = addressField.getText();
         Date dob = dateOfBirth.getDate();
-        int age = Integer.parseInt(ageField.getText());
+        String age = ageField.getText();
         organization.getEmployeeDirectory().createEmployee(name,phoneNumber, address, dob, age);
         populateTable(organization);
         

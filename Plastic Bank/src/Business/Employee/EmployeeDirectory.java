@@ -23,7 +23,7 @@ public class EmployeeDirectory {
         return employeeList;
     }
     
-    public Employee createEmployee(String name,String pno, String address, Date dob, int age){
+    public Employee createEmployee(String name,String pno, String address, Date dob, String age){
         Employee employee = new Employee();
         employee.setName(name);
         employee.setAddress(address);

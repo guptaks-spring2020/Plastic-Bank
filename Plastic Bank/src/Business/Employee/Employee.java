@@ -24,7 +24,7 @@ public class Employee {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    private int age;
+    private String age;
     private int id;
     private static int count = 1;
     private Date dob;
@@ -45,11 +45,11 @@ public class Employee {
         this.email = email;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
